@@ -36,6 +36,12 @@ enum GameState {
 GameState gameState = Startup;
 long currentStateStartTime = -1;
 
+void updateForGameState();
+bool anyButtonDown();
+void reset();
+void changeState(GameState g);
+void pickNextMove();
+
 void setup() {
   Serial.begin(9600);
   randomSeed(analogRead(A0)); // Works if analog 0 is not connected 
