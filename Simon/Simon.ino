@@ -6,6 +6,7 @@
 const int BUTTON_COUNT = 4;
 
 const int buttonPins[] = {2, 3, 4, 5};
+const int buttonAnaloguePins[] = {0, 0, A1, 0};
 int buttonStates[] = {0, 0, 0, 0};
 int lastButtonStates[] = {LOW, LOW, LOW, LOW};
 
@@ -25,6 +26,8 @@ int currentCheckPosition = -1;
 bool playedSoundForShow = false;
 
 const int ledPin =  13;
+
+bool debugOutput = true;
 
 enum GameState {
   Startup,
@@ -64,6 +67,11 @@ void loop(){
   int oldResetButtonState = resetButtonState;
   resetButtonState = digitalRead(resetButtonPin);
 
+//  int value = analogRead(buttonAnaloguePins[2]);
+//  Serial.print("analogue val: ");
+//  Serial.print(value);
+//  Serial.print("\n");
+  
   if (resetButtonState == LOW && oldResetButtonState == HIGH) {
     changeState(Startup);
   }
@@ -103,11 +111,13 @@ void updateForGameState() {
       if (timeSinceStateChange > blankTime + showTime) {
 
           for (int i = 0; i < currentMovePosition+1; i = i + 1) {
-//            Serial.print("move: ");
-//            Serial.print(i);
-//            Serial.print(" moveButton: ");
-//            Serial.print(moves[i]);
-//            Serial.print("\n");
+            if (debugOutput){
+              Serial.print("move: ");
+              Serial.print(i);
+              Serial.print(" moveButton: ");
+              Serial.print(moves[i]);
+              Serial.print("\n");
+            }
           }
 
           
@@ -167,7 +177,8 @@ void updateForGameState() {
 
         // Debounce!
         
-        int reading = digitalRead(buttonPins[i]);
+//        int reading = digitalRead(buttonPins[i]);
+        int reading = triggeredStateAtIndex(i);
         
         if (reading != lastButtonStates[i]) {
           lastDebounceTimes[i] = millis();
@@ -199,14 +210,16 @@ void updateForGameState() {
   
           // get the currect check button
           int currentCheckButton = moves[currentCheckPosition];
-          
-//          Serial.print("checking pos: ");
-//          Serial.print(currentCheckPosition);
-//          Serial.print(" currentCheckButton: ");
-//          Serial.print(currentCheckButton);
-//          Serial.print(" lastButtonDown: ");
-//          Serial.print(lastButtonDown);
-//          Serial.print("\n");
+
+          if (debugOutput) {
+            Serial.print("checking pos: ");
+            Serial.print(currentCheckPosition);
+            Serial.print(" currentCheckButton: ");
+            Serial.print(currentCheckButton);
+            Serial.print(" lastButtonDown: ");
+            Serial.print(lastButtonDown);
+            Serial.print("\n");
+          }
   
           if (lastButtonDown == currentCheckButton) {
             // if it's correct then increase the current check button position
@@ -257,14 +270,49 @@ bool anyButtonDown() {
   return false;
 }
 
+int triggeredStateAtIndex(int index) {
+  if (index == 2) {
+    int value = analogRead(buttonAnaloguePins[index]); 
+
+    
+    
+    if (value < 790) {
+//      Serial.print("analogue val: ");
+//      Serial.print(value);
+//      Serial.print("\n");
+      
+      return HIGH;
+    }
+
+    return LOW;
+  } else if (index == 3) {
+    if (digitalRead(buttonPins[index]) == LOW) {
+      return HIGH;
+    }
+    return LOW;
+  } else {
+    return digitalRead(buttonPins[index]);
+  }
+}
+
 // Don't call this directly, call changeState(Startup);
 void reset() {
-//  Serial.print("---- Reset! ----\n");       // prints a label
+  if (debugOutput) {
+    Serial.print("---- Reset! ----\n");       // prints a label
+  }
   
   currentMovePosition = -1;
   for (int i = 0; i < MOVE_MAX_COUNT; i = i + 1) {
     moves[i] = -1;
+//    lastButtonStates[i] = 0;
+//    lastDebounceTimes[i] = -1;
+//    lastDebounceTimes[i] = 0;
   }
+
+  for (int i = 0; i < BUTTON_COUNT; i = i + 1) {
+    lastButtonStates[i] = LOW;
+  }
+//  lastButtonStates = {LOW,LOW,LOW,LOW};
 }
 
 void changeState(GameState g) {
@@ -283,7 +331,9 @@ void changeState(GameState g) {
       currentCheckPosition = 0;
     break;
     case GameOver:
-//      Serial.print("---- game over ----\n");
+      if (debugOutput) {
+        Serial.print("---- game over ----\n");
+      }
     break;
     case Count:
     default:
@@ -297,11 +347,13 @@ void pickNextMove() {
   currentMovePosition += 1;
   moves[currentMovePosition] = random(BUTTON_COUNT);
 
-//  Serial.print("pos ");
-//  Serial.print(currentMovePosition);
-//  Serial.print(", led: ");
-//  Serial.print(moves[currentMovePosition]);
-//  Serial.print("\n");
+  if (debugOutput) {
+    Serial.print("pos ");
+    Serial.print(currentMovePosition);
+    Serial.print(", led: ");
+    Serial.print(moves[currentMovePosition]);
+    Serial.print("\n");
+  }
 }
 
 
