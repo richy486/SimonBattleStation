@@ -7,14 +7,14 @@ import serial
 
 pygame.mixer.init(44000, -16, 1, 1024) 
 
-soundA = pygame.mixer.Sound("PhoneRinging.wav")     # Phone 
-soundB = pygame.mixer.Sound("HornHonk.wav")         # red button
-soundC = pygame.mixer.Sound("Snorting.wav")         # Pig
-soundD = pygame.mixer.Sound("ElectricShockZap.wav") # Knife switch
+soundA = pygame.mixer.Sound("Sounds/PhoneRinging.wav")     # Phone 
+soundB = pygame.mixer.Sound("Sounds/HornHonk.wav")         # red button
+soundC = pygame.mixer.Sound("Sounds/Snorting.wav")         # Pig
+soundD = pygame.mixer.Sound("Sounds/ElectricShockZap.wav") # Knife switch
 
-soundWin = pygame.mixer.Sound("ElectricShockZap.wav")
-soundYourTurn = pygame.mixer.Sound("ElectricShockZap.wav")
-soundGameOver = pygame.mixer.Sound("ElectricShockZap.wav")
+soundWin = pygame.mixer.Sound("Sounds/ElectricShockZap.wav")
+soundYourTurn = pygame.mixer.Sound("Sounds/ElectricShockZap.wav")
+soundGameOver = pygame.mixer.Sound("Sounds/ElectricShockZap.wav")
 
 soundChannelA = pygame.mixer.Channel(1) 
 soundChannelB = pygame.mixer.Channel(2)
