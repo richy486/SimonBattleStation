@@ -231,10 +231,10 @@ void updateForGameState() {
             
             // if current check button position is greater than current move position then goto Showing state
             if (currentCheckPosition > currentMovePosition) {
-              Serial.write(soundWin);
+//              Serial.write(soundWin);
               changeState(Showing);
             } else {
-              Serial.write(currentCheckPosition+2);
+//              Serial.write(currentCheckPosition+2);
             }
             
           } else {
@@ -247,6 +247,8 @@ void updateForGameState() {
           
   
         }
+      } else if (lastButtonDown < 0 && currentButtonDown >= 0) {
+        Serial.write(currentButtonDown+2);
       }
 
     }
