@@ -12,9 +12,8 @@ soundB = pygame.mixer.Sound("Sounds/HornHonk.wav")         # red button
 soundC = pygame.mixer.Sound("Sounds/Snorting.wav")         # Pig
 soundD = pygame.mixer.Sound("Sounds/ElectricShockZap.wav") # Knife switch
 
-soundWin = pygame.mixer.Sound("Sounds/ElectricShockZap.wav")
-soundYourTurn = pygame.mixer.Sound("Sounds/ElectricShockZap.wav")
-soundGameOver = pygame.mixer.Sound("Sounds/ElectricShockZap.wav")
+soundWin = pygame.mixer.Sound("Sounds/Cheering.wav")
+soundGameOver = pygame.mixer.Sound("Sounds/SadTrombone.wav")
 
 soundChannelA = pygame.mixer.Channel(1) 
 soundChannelB = pygame.mixer.Channel(2)
@@ -22,7 +21,6 @@ soundChannelC = pygame.mixer.Channel(3)
 soundChannelD = pygame.mixer.Channel(4) 
 soundChannelE = pygame.mixer.Channel(5)
 soundChannelF = pygame.mixer.Channel(6)
-soundChannelG = pygame.mixer.Channel(7)
 
 print "Sampler Ready."
 serialFromArduino = serial.Serial("/dev/ttyACM0",9600)
@@ -43,9 +41,7 @@ while True:
         if (val == 6):
             soundChannelE.play(soundWin)
         if (val == 7):
-            soundChannelF.play(soundYourTurn)
-        if (val == 8):
-            soundChannelG.play(soundGameOver)
+            soundChannelF.play(soundGameOver)
         val = 0
         sleep(.01)
     except KeyboardInterrupt: 

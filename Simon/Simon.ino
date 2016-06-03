@@ -27,6 +27,9 @@ bool playedSoundForShow = false;
 
 const int ledPin =  13;
 
+const int soundWin = 6;
+const int soundGameOver = 7;
+
 bool debugOutput = true;
 
 enum GameState {
@@ -228,13 +231,16 @@ void updateForGameState() {
             
             // if current check button position is greater than current move position then goto Showing state
             if (currentCheckPosition > currentMovePosition) {
+              Serial.write(soundWin);
               changeState(Showing);
+            } else {
+              Serial.write(currentCheckPosition+2);
             }
             
           } else {
   
             // if it's incorrect game over
-            
+            Serial.write(soundGameOver);
             changeState(GameOver);
           }
       
