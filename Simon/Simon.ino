@@ -276,7 +276,7 @@ int triggeredStateAtIndex(int index) {
 
     
     
-    if (value < 790) {
+    if (value < 830) {
 //      Serial.print("analogue val: ");
 //      Serial.print(value);
 //      Serial.print("\n");
