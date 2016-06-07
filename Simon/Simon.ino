@@ -3,17 +3,17 @@
   by Sine, Richy, Justin  
  */
 
-const int BUTTON_COUNT = 4;
+const int BUTTON_COUNT = 5;
 
-const int buttonPins[] = {2, 3, 4, 5};
-const int buttonAnaloguePins[] = {0, 0, A1, 0};
-int buttonStates[] = {0, 0, 0, 0};
-int lastButtonStates[] = {LOW, LOW, LOW, LOW};
+const int buttonPins[] = {2, 3, 4, 5, 7};
+const int buttonAnaloguePins[] = {0, 0, A1, 0, 0};
+int buttonStates[] = {0, 0, 0, 0, 0};
+int lastButtonStates[] = {LOW, LOW, LOW, LOW, LOW};
 
-long lastDebounceTimes[] = {0, 0, 0, 0};
+long lastDebounceTimes[] = {0, 0, 0, 0, 0};
 long debounceDelay = 50;
 
-const int ledPins[] = {8, 9, 10, 11};
+const int ledPins[] = {8, 9, 10, 11, 12};
 
 const int resetButtonPin = 6;
 int resetButtonState = 0;
@@ -27,8 +27,8 @@ bool playedSoundForShow = false;
 
 const int ledPin =  13;
 
-const int soundWin = 6;
-const int soundGameOver = 7;
+const int soundWin = 7;
+const int soundGameOver = 8;
 
 bool debugOutput = true;
 
