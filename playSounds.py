@@ -11,7 +11,7 @@ soundA = pygame.mixer.Sound("Sounds/PhoneRinging.wav")     # Phone
 soundB = pygame.mixer.Sound("Sounds/HornHonk.wav")         # red button
 soundC = pygame.mixer.Sound("Sounds/Snorting.wav")         # Pig
 soundD = pygame.mixer.Sound("Sounds/ElectricShockZap.wav") # Knife switch
-soundE = pygame.mixer.Sound("Sounds/shootInvader.wav")     # Stapler
+soundE = pygame.mixer.Sound("Sounds/Stapler.wav")          # Stapler
 
 soundWin = pygame.mixer.Sound("Sounds/Cheering.wav")
 soundGameOver = pygame.mixer.Sound("Sounds/SadTrombone.wav")
